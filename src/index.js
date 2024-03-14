@@ -1,6 +1,8 @@
+import { ChartWrapper } from './chart-wrapper';
+
 init();
 function init() {
-  showCharts();
+  openFile();
 }
 
 function openFile() {
@@ -8,21 +10,39 @@ function openFile() {
     .then(async (res) => res.text())
     .then((res) => {
       const formattedData = formatData(res);
-
       showCharts(formattedData);
     });
 }
 
 function formatData(res) {
-  const formattedData = [];
-  for (const line of res.split('\r\n')) {
-    formattedData.push(
-      line.split('\t').map((e) => parseFloat(e.replace(',', '.'))),
+  const data = res
+    .split('\r\n')
+    .map((e) =>
+      e
+        .split('\t')
+        .flatMap((f) => (f ? [parseFloat(f.replace(',', '.'))] : [])),
     );
-  }
-  return formattedData;
+  return data;
 }
 
-function showCharts(data) {
-  console.log('Charts are ready to display.');
+async function showCharts(data) {
+  const voltageChart = new ChartWrapper({
+    elementId: 'voltage-chart',
+    xAxisData: data.map((e) => e[0]),
+    yAxisData: data.map((e) => e[2]),
+    xAxisTitle: 'Czas [s]',
+    yAxisTitle: 'Napiecie [V]',
+    maxNumberOfElementsOnChart: 500,
+    borderColor: 'rgb(75, 192, 192)',
+  });
+
+  const shiftChart = new ChartWrapper({
+    elementId: 'distance-chart',
+    xAxisData: data.map((e) => e[0]),
+    yAxisData: data.map((e) => e[1]),
+    xAxisTitle: 'Czas [s]',
+    yAxisTitle: 'Odległość [mm]',
+    maxNumberOfElementsOnChart: 500,
+    borderColor: 'rgb(90, 100, 90)',
+  });
 }
