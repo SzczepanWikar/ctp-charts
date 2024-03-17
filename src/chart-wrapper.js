@@ -117,8 +117,14 @@ export class ChartWrapper {
    * })}
    */
   #getMinAndMax() {
-    const min = Math.min(...this.#yAxisData);
-    const max = Math.max(...this.#yAxisData);
+    let min = Infinity;
+    let max = -Infinity;
+
+    for (const value of this.#yAxisData) {
+      if (value < min) min = value;
+      if (value > max) max = value;
+    }
+
     return {
       min: Math.floor(min),
       max: Math.ceil(max),
