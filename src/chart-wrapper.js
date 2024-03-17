@@ -54,6 +54,8 @@ export class ChartWrapper {
           tension: 0.1,
         },
       ],
+      yAxisID: 'y',
+      xAxisID: 'x',
     };
 
     const config = {
@@ -61,6 +63,22 @@ export class ChartWrapper {
       data: chartData,
       options: {
         animation: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: this.#yAxisTitle,
+            },
+            ...this.#getMinAndMax(),
+          },
+          x: {
+            title: {
+              display: true,
+              text: this.#xAxisTitle,
+            },
+          },
+        },
       },
     };
 
@@ -90,6 +108,21 @@ export class ChartWrapper {
     } else {
       this.#end = 0;
     }
+  }
+
+  /**
+   * @returns {({
+   *  min,
+   *  max
+   * })}
+   */
+  #getMinAndMax() {
+    const min = Math.min(...this.#yAxisData);
+    const max = Math.max(...this.#yAxisData);
+    return {
+      min: Math.floor(min),
+      max: Math.ceil(max),
+    };
   }
 }
 
