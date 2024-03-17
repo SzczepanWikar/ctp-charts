@@ -16,11 +16,14 @@ function openFile() {
 
 function formatData(res) {
   const data = res
-    .split('\r\n')
-    .map((e) =>
-      e
-        .split('\t')
-        .flatMap((f) => (f ? [parseFloat(f.replace(',', '.'))] : [])),
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) =>
+      line.split('\t').reduce((acc, val) => {
+        const parsedVal = parseFloat(val.replace(',', '.'));
+        if (!isNaN(parsedVal)) acc.push(parsedVal);
+        return acc;
+      }, []),
     );
   return data;
 }
