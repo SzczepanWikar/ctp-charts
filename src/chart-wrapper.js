@@ -8,7 +8,6 @@ export class ChartWrapper {
   #yAxisTitle;
   #borderColor;
   #end;
-
   #element;
   #chart;
 
@@ -40,6 +39,10 @@ export class ChartWrapper {
     this.#borderColor = borderColor;
 
     this.#generate();
+  }
+
+  getElement() {
+    return this.#element;
   }
 
   async #generate() {

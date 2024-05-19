@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html lang="pl">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <title>Cyfrowe Techniki Pomiarowe</title>
+  </head>
 
-<head>
-  <link rel="stylesheet" href="style.css">
-  <title>Cyfrowe Techniki Pomiarowe</title>
-</head>
-
-<body>
-  <a style="display: none" href="data.lvm"></a>
-  <script type="module" src="index.js"></script>
-  <nav>
-    <h1 class="title">Cyfrowe Techniki Pomiarowe</h1>
-  </nav>
-  <main>
-    <div class="chart">
-      <canvas id="voltage-chart"></canvas>
-    </div>
-    <div class="chart">
-      <canvas id="distance-chart"></canvas>
-    </div>
-  </main>
-</body>
-
+  <body>
+    <script type="module" src="index.js"></script>
+    <nav>
+      <h1 class="title">Cyfrowe Techniki Pomiarowe</h1>
+    </nav>
+    <main>
+    <dialog id="data-source-dialog">
+      <div id="data-source-form">
+        <label>Nazwa serii danych</label>
+        <input
+          id="data-source-form__name"
+          type="text"
+          placeholder="Nazwa serii danych"
+        />
+        <label>Plik z danymi</label>
+        <input id="data-source-form__file" type="file" accept=".txt,.lvm" />
+        <span>
+          Kolumny
+        </span>
+        <div id="data-source-form__colums-container">
+        </div>
+        <button id="data-source-form__submit">Dodaj źródło danych</button>
+        <button id="data-source-form__cancel">Anuluj</button>
+      </div>
+    </dialog>
+    <button id="data-source-dialog-button">Dodaj serię danych</button>
+      <div id="chart-config-form">
+        <select id="chart-config-form__data-source-select"></select>
+        <div>
+          <label> Dane osi poziomej </label
+          ><select id="chart-config-form__x-axis-select"></select>
+        </div>
+        <div>
+          <label> Dane osi pionowej </label
+          ><select id="chart-config-form__y-axis-select"></select>
+        </div>
+        <div>
+          <label> Kolor </label>
+          <input type="color" id="chart-config-form__color"></input>
+        </div>
+        <button id="chart-config-form__submit">Utwórz Wykres</button>
+      </div>
+      <div id="charts_container" class="charts">
+      </div>
+    </main>
+  </body>
 </html>
