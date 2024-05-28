@@ -30,7 +30,7 @@ nav {
 
 #chart-config-form {
 	display: flex;
-	justify-content: space-between;
+	gap: 70px;
 	align-items: center;
 	margin-right: 55px;
 	margin-left: 55px;
